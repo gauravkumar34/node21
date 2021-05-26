@@ -1,0 +1,43 @@
+<div class="container">
+  <form [formGroup]="profileName" (ngSubmit)="saveFrom()" class="mt-5">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Item Name</label>
+      <input type="text" formControlName="itemName" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Item Quantity</label>
+      <input type="text" formControlName="itemQuantity" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter item">
+    </div>
+
+    <div class="form-group">
+      <label for="inputState">Item Bought</label>
+      <select id="inputState" formControlName="itemBought"  placeholder="select option" class="form-control">
+        <option>true</option>
+        <option>false</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Item Name</th>
+        <th scope="col">Item Quantity</th>
+        <th scope="col">Item Bougth</th>
+        <th scope="col">Delete Item</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of allData; let i = index">
+        <th scope="row">{{i}}</th>
+        <td>{{item.itemName}}</td>
+        <td>{{item.itemQuantity}}</td>
+        <td>{{item.itemBought}}</td>
+        <td class="badge badge-danger" (click)="deleteItem(item)">Delete</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

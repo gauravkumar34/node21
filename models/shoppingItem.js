@@ -11,8 +11,8 @@ const shoppingItemSchema = mongoose.Schema({
   itemBought: {
     type: Boolean,
     required: true,
-  },
-  itemImage: [{ type: String, require: true }],
+  }
+  // itemImage: [{ type: String, require: true }],
 });
 
 const Item = (module.exports = mongoose.model("Item", shoppingItemSchema));

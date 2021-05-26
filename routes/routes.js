@@ -57,8 +57,25 @@ router.post("/item", upload.array("itemImage", 3), (req, res, next) => {
     }
   });
 });
+router.post("/add", (req, res, next) => {
+  // router.post("/item", upload.single("itemImage"), (req, res, next) => {
+    const { body } = req;
 
-router.put("/item/:id", (req, res, next) => {
+  let newShoppingItem = new Item({
+    itemName: body.itemName,
+    itemQuantity: body.itemQuantity,
+    itemBought: body.itemBought
+  });
+  newShoppingItem.save((err, item) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json({ msg: "Item has been added to db" });
+    }
+  });
+});
+
+router.put("/add/:id", (req, res, next) => {
   Item.findOneAndUpdate(
     { _id: req.params.id },
     {
@@ -96,16 +113,13 @@ router.delete("/user/:id/image/:path", async (req, res) => {
     console.log("path: ", path);
 
     let item = await Item.findById(id);
-
-    console.log("item: ", item);
-
-    let images = Item.itemImage;
-    console.log("images: ", images);
-
-    // images = images.filter((e) => e != path);
-    // console.log("images: ", images);
-
+    let images = item.itemImage;
+    const target = "public\\images\\"+path;
+     let x =  images.filter(e=>e != target);
+     console.log(x)
+     item.remove({itemImage: x});
     res.json(item);
+
   } catch (error) {
     console.error(error);
   }
